@@ -1,160 +1,837 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+from audioop import add
+from os import remove
+import time
+import random
+import math
+import sys
 
-# C extensions
-*.so
+gun = 5
+knife = 2
+bulletvest = 5
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+def delay_print(s):
+    for c in s:
+        sys.stdout.write(c)
+        sys.stdout.flush
+        time.sleep(0.05)
+        
+def random_loot():
+   com = random.randint(1, 5)
+   delay_print("\nThere are " + str(com) + " computers in the room")
+   com1 = True
+   while com1:
+      l = int(input("\n[1]Use the passwords on the computers \n[2]Go to the next room \n"))
+      if l == 1:  
+          if 'password' in inv:
+            inv.remove('password')
+            loot = random.randint(1, 5)
+            if loot == 1:
+              delay_print("\nYou got a knife")
+              inv.append('knife')
+            elif loot == 2:
+                delay_print("\nYou got a bullet proof vest")
+                inv.append('bulletvest')
+            elif loot == 3:
+                delay_print("\nYou got an attack inhancer")
+                player.atk = int(player.atk) + 1
+            elif loot == 4:
+                delay_print("\nYou got a defence inhancer")
+                player.defn = int(player.defn) + 1
+            elif loot == 5:
+                delay_print("\nYou got a HP inhancer")
+                player.maxhp = int(player.maxhp) + 1
+          else:
+             delay_print("You don't have any more passwords")
+             l == 2
+      elif l == 2:
+         com1 = False
+         
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+def random_room():
+    roomt = ["Office", "Cafeteeria", "The Bosses Room"]
+    roomd = ["The room has abunch of enployes armed and ready for you.", "The room is full of enployes on their lunch breake.", "Their is a man in a big suit."]
+    o1 = roomt[0]
+    c1 = roomt[1]
+    tbr1 = roomt[2]
+    
+    t1 = roomd[0]
+    t2 = roomd[1]
+    t3 = roomd[2]
+    
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+    rtp = random.randint(1, 3)
+    rdp = random.randint(1, 3)
+    if rtp == 1:
+        delay_print(o1)
+        print("\n")
+        if rdp == 1:
+            delay_print(t1)
+            battle = 11
+        elif rdp == 2:
+            delay_print(t2)
+            battle = 12
+        elif rdp == 3:
+            delay_print(t3)
+            battle = 13
+    elif rtp == 2:
+        delay_print(c1)
+        print("\n")
+        if rdp == 1:
+            delay_print(t1)
+            battle = 21
+        elif rdp == 2:
+            delay_print(t2)
+            battle = 22
+        elif rdp == 3:
+            delay_print(t3)
+            battle = 23
+    elif rtp == 3:
+        delay_print(tbr1)
+        print("\n")
+        if rdp == 1:
+            delay_print(t1)
+            battle = 31
+        elif rdp == 2:
+            delay_print(t2)
+            battle = 32
+        elif rdp == 3:
+            delay_print(t3)
+            battle = 33
+            
+    if battle == 11:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 12:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 13:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 21:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 22:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 23:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 31:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 32:
+       num_e = random.randint(1, 3)
+       if num_e == 1:
+          delay_print("There is 1 officee worker that is going to fight you.")
+       elif num_e == 2:
+          delay_print("There are 2 officee worker that are going to fight you.")
+       elif num_e == 3:
+          delay_print("There are 3 officee worker that are going to fight you.")
+       battle1 = True
+       while battle1:
+          if num_e == 1:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             officee_worker.attack(player)
+             player.attack(officee_worker)
+             if int(officee_worker.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 2:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+          elif num_e == 3:
+             print("\n")
+             print(int(player.hp))
+             print(int(officee_worker.hp))
+             print(int(officee_worker2.hp))
+             print(int(officee_worker3.hp))
+             if int(officee_worker.hp) > 0:
+                officee_worker.attack(player)
+             if int(officee_worker2.hp) > 0:
+                officee_worker2.attack(player)
+             if int(officee_worker3.hp) > 0:
+                officee_worker3.attack(player)
+             at = int(input("\n[1]Officee worker 1 \n[2]Officee worker 2 \n[3]officee worker 3 \n"))
+             if at == 1:
+                player.attack(officee_worker)
+             elif at == 2:
+                player.attack(officee_worker2)
+             elif at == 3:
+                player.attack(officee_worker3)
+             if int(officee_worker.hp) <= 0 and int(officee_worker2.hp) <= 0 and int(officee_worker3.hp) <= 0:
+                delay_print("you win")
+                inv.append(officee_worker.reward)
+                int(player.xp) + int(officee_worker.xpg)
+                inv.append(officee_worker2.reward)
+                int(player.xp) + int(officee_worker2.xpg)
+                inv.append(officee_worker3.reward)
+                int(player.xp) + int(officee_worker3.xpg)
+                battle1 = False
+             elif int(player.hp) <= 0:
+                delay_print("you lose")
+                quit()
+    elif battle == 33:
+       delay_print("'So you've finally came. You have been causing a disterbence in my companiy. Now am going to finish this' ")
+       battle1 = True
+       while battle1:
+           print("\n")
+           print(int(player.hp))
+           print(int(boss.hp))
+           boss.attack(player)
+           player.attack(boss)
+           if int(boss.hp) <= 0:
+               delay_print("you win")
+               inv.append(boss.reward)
+               int(player.xp) + int(boss.xpg)
+               battle1 = False
+           elif int(player.hp) <= 0:
+               delay_print("you lose")
+               quit()
+       delay_print("You've found the SCALE and you go home.")
+          
+          
+    
+class player():
+  def __init__(self, lvl, hp, atk, defn, xp, credits, inv, maxhp):
+    self.lvl = int(lvl)
+    self.hp = int(hp)
+    self.atk = int(atk)
+    self.defn = int(defn)
+    self.xp = int(xp)
+    self.credits = int(credits)
+    self.inv = inv
+    self.maxhp = int(hp)
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
+  def lvlup(self):
+    if player.xp >= player.lvl * 300:
+      player.lvl =+ 1
+      player.maxhp = player.maxhp + random.randint(player.lvl * 2, player.maxhp)
+      player.atk = player.atk + random.randint(player.lvl * 2, player.atk)
+      player.defn = player.defn + random.randint(player.lvl * 2, player.defn)
+      print("you leveled up")
 
-# Translations
-*.mo
-*.pot
+  def attack(self, enemy):
+    if enemy.hp > 0:
+      if 'gun' and 'knife' in inv:
+         which = input("which attack do you use? \n[1]Gun \n[2]Knife \n")
+      else:
+        which = input("what do you do? \n[1]attack \n")
+      if which == '1':
+        damage = player.atk - enemy.defn
+        if 'gun' in str(player.inv):
+          damage = damage + gun
+        elif 'knife' in str(player.inv) and which == '2':
+          damage = damage + knife
+        enemy.hp = enemy.hp - damage
+        print("you did " + str(damage))
+    else:
+      print("you win")
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
 
-# Flask stuff:
-instance/
-.webassets-cache
 
-# Scrapy stuff:
-.scrapy
+class enemy():
+  def __init__(self, hp, eatk, defn, xpg, reward):
+    self.hp = int(hp)
+    self.eatk = int(eatk)
+    self.defn = int(defn)
+    self.xpg = int(xpg)
+    self.reward = reward
 
-# Sphinx documentation
-docs/_build/
 
-# PyBuilder
-.pybuilder/
-target/
+  
+  def attack(self, player):
+    if player.hp >= 0:
+      damage = random.randint(1, 2)#enemy.atk - player.defn
+      if 'bulletvest' in str(player.inv):
+        damage = damage - bulletvest
+      player.hp = player.hp - damage
+      print("you took " + str(damage))
 
-# Jupyter Notebook
-.ipynb_checkpoints
+            
+inv = ['gun']
+player = player(1, 10, 6, 5, 0, 0, inv, 10)
 
-# IPython
-profile_default/
-ipython_config.py
+officee_worker = enemy(int(player.maxhp) - 1, int(player.atk) + 0, int(player.defn) + 0, int(player.lvl) * 2, 'password')
+officee_worker2 = enemy(int(player.maxhp) - 1, int(player.atk) + 0, int(player.defn) + 0, int(player.lvl) * 2, 'password')
+officee_worker3 = enemy(int(player.maxhp) - 1, int(player.atk) + 0, int(player.defn) + 0, int(player.lvl) * 2, 'password')
 
-# pyenv
-#   For a library or package, you might want to ignore these files since the code is
-#   intended to run in multiple environments; otherwise, check them in:
-# .python-version
+boss = enemy(int(player.maxhp) + 10, int(player.atk) + 10, int(player.defn) + 10, int(player.lvl) * 100, 'SCALE')
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
 
-# poetry
-#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
-#poetry.lock
-
-# pdm
-#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
-#pdm.lock
-#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
-#   in version control.
-#   https://pdm.fming.dev/#use-with-ide
-.pdm.toml
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
-# PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+delay_print("You are a protester and you were tasked with infertrating a company to get a artifact that looks like a scale.")
+print("\n")
+run = True
+while run:
+    random_room()
+    print("\n")
+    player.lvlup()
+    random_loot()
+    print("\n")
+    player.hp = int(player.maxhp)
+    officee_worker.hp = int(player.maxhp) - 1
+    officee_worker2.hp = int(player.maxhp) - 1
+    officee_worker3.hp = int(player.maxhp) - 1
+    if 'SCALE' in inv:
+       run = False
+       
+delay_print("thank you for playing")
+quit()
